@@ -2,7 +2,6 @@ from import_export import resources
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib import admin
 from .models import CoreUser
-from common.admin import BaseAdmin, SoftDeleteListFilter
 
 
 class CoreUserResource(resources.ModelResource):
@@ -28,7 +27,7 @@ class CoreUserResource(resources.ModelResource):
 from django.contrib.admin.actions import delete_selected
 
 @admin.register(CoreUser)
-class CoreUserAdmin(BaseAdmin, BaseUserAdmin):
+class CoreUserAdmin(BaseUserAdmin):
 
     model = CoreUser
     resource_class = CoreUserResource
@@ -63,12 +62,10 @@ class CoreUserAdmin(BaseAdmin, BaseUserAdmin):
     )
 
     list_filter = (
-        SoftDeleteListFilter,
         "role",
         "status",
         "is_active",
         "is_staff",
-        "country",
     )
 
     readonly_fields = (
@@ -180,11 +177,6 @@ class CoreUserAdmin(BaseAdmin, BaseUserAdmin):
             },
         ),
     )
-
-    # If you have actions_row from BaseAdmin, keep it
-    # actions_row = [
-    #     "reset_password_action",
-    # ]
 
     def delete_queryset(self, request, queryset):
         """Soft delete for bulk actions"""

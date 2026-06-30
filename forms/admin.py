@@ -2,8 +2,6 @@ from django.contrib import admin
 from .models import Form, Question, Option, Response, Answer
 from import_export.admin import ExportMixin
 
-
-# ================== INLINE ADMINS ==================
 class OptionInline(admin.TabularInline):
     model = Option
     extra = 1
@@ -27,16 +25,13 @@ class AnswerInline(admin.TabularInline):
     show_change_link = True
 
 
-# ================== FORM ADMIN ==================
 @admin.register(Form)
 class FormAdmin(ExportMixin, admin.ModelAdmin):
-    list_display = ["title", "type", "is_active", "created_at", "updated_at"]
-    list_filter = ["type", "is_active", "created_at"]
+    list_display = ["title", "type", "is_active"]
+    list_filter = ["type", "is_active"]
     search_fields = ["title"]
     inlines = [QuestionInline]
 
-
-# ================== QUESTION ADMIN ==================
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = [
@@ -52,8 +47,6 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [OptionInline]
     ordering = ["form", "order"]
 
-
-# ================== OPTION ADMIN ==================
 @admin.register(Option)
 class OptionAdmin(admin.ModelAdmin):
     list_display = ["text", "question"]
@@ -61,11 +54,10 @@ class OptionAdmin(admin.ModelAdmin):
     search_fields = ["text", "question__text"]
 
 
-# ================== RESPONSE ADMIN ==================
 @admin.register(Response)
 class ResponseAdmin(admin.ModelAdmin):
-    list_display = ["id", "form", "user", "created_at", "updated_at"]
-    list_filter = ["form", "user", "created_at"]
+    list_display = ["id", "form", "user",]
+    list_filter = ["form", "user",]
     search_fields = [
         "form__title",
         "user__email",
@@ -74,8 +66,6 @@ class ResponseAdmin(admin.ModelAdmin):
     ]
     inlines = [AnswerInline]
 
-
-# ================== ANSWER ADMIN ==================
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ["response", "question", "value", "option"]
