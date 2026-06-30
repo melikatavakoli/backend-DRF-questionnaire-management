@@ -33,3 +33,5 @@ drf-spectacular-sidecar==2025.9.1
 python-dotenv==1.0.1
 django-location-field==2.7.3
 Pillow==12.1.0
+django-extensions
+django-import-export

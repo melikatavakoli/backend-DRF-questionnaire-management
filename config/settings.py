@@ -1,7 +1,6 @@
 import os
 from datetime import timedelta
 from pathlib import Path
-from celery.schedules import crontab
 from dotenv import dotenv_values
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +36,6 @@ THIRD_PARTY_APPS = [
     "location_field",
     "drf_standardized_errors",
     "rest_framework_simplejwt",
-    "django_celery_beat",
     "rest_framework.authtoken",
     "rest_framework_simplejwt.token_blacklist",
     "debug_toolbar",
